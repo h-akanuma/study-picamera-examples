@@ -1,6 +1,7 @@
 from __future__ import print_function
 from imutils.video.pivideostream import PiVideoStream
 from imutils.object_detection import non_max_suppression
+from datetime import datetime as dt
 import imutils
 import time
 import numpy as np
@@ -20,9 +21,10 @@ net = cv2.dnn.readNetFromCaffe('/home/pi/models/MobileNetSSD_deploy.prototxt',
         '/home/pi/models/MobileNetSSD_deploy.caffemodel')
 
 def upload():
+    now = dt.now()
     image = { 'file': open('hello.jpg', 'rb') }
     payload = {
-            'filename': 'hello.jpg',
+            'filename': '{}.jpg'.format(now.strftime('%Y%m%d%H%M%S')),
             'token': SLACK_TOKEN,
             'channels': [SLACK_CHANNEL],
             #'initial_comment': ['Best!'],
