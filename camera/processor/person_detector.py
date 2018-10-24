@@ -25,7 +25,7 @@ def upload():
             'filename': 'hello.jpg',
             'token': SLACK_TOKEN,
             'channels': [SLACK_CHANNEL],
-            'initial_comment': 'Best!',
+            'initial_comment': ['Best!'],
     }
     requests.post(SLACK_URL, params = payload, files = image)
 
