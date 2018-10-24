@@ -29,7 +29,7 @@ def upload():
             'channels': [SLACK_CHANNEL],
             #'initial_comment': ['Best!'],
     }
-    requests.post(SLACK_URL, params = payload, files = image)
+    print(requests.post(SLACK_URL, params = payload, files = image))
 
 class PersonDetector(object):
     def __init__(self, flip = True):
