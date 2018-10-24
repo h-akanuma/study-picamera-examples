@@ -20,14 +20,14 @@ except KeyError as e:
 net = cv2.dnn.readNetFromCaffe('/home/pi/models/MobileNetSSD_deploy.prototxt',
         '/home/pi/models/MobileNetSSD_deploy.caffemodel')
 
-def upload():
+def upload(label):
     now = dt.now()
     image = { 'file': open('hello.jpg', 'rb') }
     payload = {
             'filename': '{}.jpg'.format(now.strftime('%Y%m%d%H%M%S')),
             'token': SLACK_TOKEN,
             'channels': [SLACK_CHANNEL],
-            'initial_comment': 'Uploaded from Rapsberry Pi with isaax :)',
+            'initial_comment': 'Uploaded from Rapsberry Pi with isaax. {}'.format(label),
     }
     print(requests.post(SLACK_URL, params = payload, files = image))
 
@@ -83,7 +83,7 @@ class PersonDetector(object):
             elapsed = time.time() - self.last_upload
             if elapsed > 60:
                 cv2.imwrite('hello.jpg', frame)
-                upload()
+                upload(label)
                 self.last_upload = time.time()
                 
         return frame
